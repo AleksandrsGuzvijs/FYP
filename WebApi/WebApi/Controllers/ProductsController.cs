@@ -74,7 +74,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var repo = new CacheAdapter.Core.ProductRepo(new HttpClient());
+                var repo = new ProductRepo(new HttpClient());
                 Product results;
                 results = await repo.GetById(id);
                 if (results.InStock != true || results == null)

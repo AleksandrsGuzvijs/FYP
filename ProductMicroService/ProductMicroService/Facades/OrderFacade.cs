@@ -9,12 +9,12 @@ using LibFYP.DTOs;
 
 namespace ProductMicroService.Facades
 {
-    public class ProductFacade
+    public class OrderFacade
     {
         private HttpClient _client;
-        
+
         [HttpGet]
-        public async Task<IEnumerable<Product>> GetProducts(string url)
+        public async Task<IEnumerable<Order>> GetOrders(string url)
         {
             try
             {
@@ -23,11 +23,11 @@ namespace ProductMicroService.Facades
                 _client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
 
                 HttpResponseMessage response = new HttpResponseMessage();
-                response = await _client.GetAsync("Product");
+                response = await _client.GetAsync("Order");
                 if (response.IsSuccessStatusCode)
                 {
-                    var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
-                    return products;
+                    var orders = response.Content.ReadAsAsync<IEnumerable<Order>>().Result;
+                    return orders;
                 }
                 else
                 {

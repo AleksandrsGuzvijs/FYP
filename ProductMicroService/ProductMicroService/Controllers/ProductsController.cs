@@ -9,11 +9,11 @@ using LibFYP.DTOs;
 
 namespace ProductMicroService.Controllers
 {
-    public class ProductsController
+    public class ProductsController : ApiController
     {
-        private readonly string _cuttersUrl = "url/";
-        private readonly string _BazaarUrl = "url/";
-        private readonly string _DodgyUrl = "url/";
+        private readonly string _cuttersUrl = "http://undercutters.azurewebsites.net/";
+        private readonly string _BazaarUrl = "http://bazzasbazaar.azurewebsites.net/";
+        private readonly string _DodgyUrl = "http://dodgydealers.azurewebsites.net/";
 
         [HttpGet]
         public async Task<HttpResponseMessage> GetProducts()
@@ -26,7 +26,8 @@ namespace ProductMicroService.Controllers
 
                 List<Product> allProducts = new List<Product>();
                 allProducts.AddRange(await productsCutters);
-                allProducts.AddRange(await productsBazaar);                allProducts.AddRange(await productsDodgy);
+                allProducts.AddRange(await productsBazaar);
+                allProducts.AddRange(await productsDodgy);
 
                 if (allProducts.ToList().Count > 0)
                 { 

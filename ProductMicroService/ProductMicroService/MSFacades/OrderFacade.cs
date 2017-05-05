@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using LibFYP.DTOs;
 
-namespace ProductMicroService.Facades
+namespace ProductMicroService.MSFacades
 {
-    public class CategoryFacade
+    public class OrderFacade
     {
         private HttpClient _client;
 
         [HttpGet]
-        public async Task<IEnumerable<Category>> GetCategories(string url)
+        public async Task<IEnumerable<Order>> GetOrders(string url)
         {
             try
             {
@@ -23,11 +23,11 @@ namespace ProductMicroService.Facades
                 _client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
 
                 HttpResponseMessage response = new HttpResponseMessage();
-                response = await _client.GetAsync("Category");
+                response = await _client.GetAsync("Order");
                 if (response.IsSuccessStatusCode)
                 {
-                    var categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
-                    return categories;
+                    var orders = response.Content.ReadAsAsync<IEnumerable<Order>>().Result;
+                    return orders;
                 }
                 else
                 {

@@ -19,7 +19,7 @@ namespace WebApi.Controllers
         }*/
         
         [HttpGet]
-        public async Task<HttpResponseMessage> GetProducts(int? catId = null, int? brandId = null, double? minPrice = 0,
+        public async Task<IHttpActionResult> GetProducts(int? catId = null, int? brandId = null, double? minPrice = 0,
             double? maxPrice = double.MaxValue, bool? InStock = null)
         {
             try
@@ -52,25 +52,25 @@ namespace WebApi.Controllers
                     results = await repo.FindBy(query);
                     results = results.Where(p => p.InStock == true);
                     if (results.ToList().Count > 0)
-                        return Request.CreateResponse(HttpStatusCode.OK, results);
-                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Nothing found");
+                        return Ok(results);
+                    return NotFound();
                 }
                 results = await repo.GetAll();
                 results = results.Where(p => p.InStock == true);
                 if (results.ToList().Count > 0)
-                    return Request.CreateResponse(HttpStatusCode.OK, results);
-                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Nothing found");
+                    return Ok(results);
+                return NotFound();
             }
 
             catch
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
+                return NotFound();
             }
         }
 
 
         [HttpGet]
-        public async Task<HttpResponseMessage> GetProduct(int id)
+        public async Task<IHttpActionResult> GetProduct(int id)
         {
             try
             {
@@ -79,14 +79,14 @@ namespace WebApi.Controllers
                 results = await repo.GetById(id);
                 if (results.InStock != true || results == null)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Nothing found");
+                    return NotFound();
                 }
-                    return Request.CreateResponse(HttpStatusCode.OK, results);
+                    return Ok(results);
             }
 
             catch
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
+                return NotFound();
             }
         }
     }

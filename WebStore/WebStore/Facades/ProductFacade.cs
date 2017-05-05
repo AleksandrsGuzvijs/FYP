@@ -16,7 +16,7 @@ namespace WebStore.Facades
         public ProductFacade()
         {
             _client = new HttpClient();
-            _client.BaseAddress = new System.Uri("");
+            _client.BaseAddress = new Uri("");
             _client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
         }
 
@@ -26,7 +26,7 @@ namespace WebStore.Facades
             try
             {
                 HttpResponseMessage response = new HttpResponseMessage();
-                response = await _client.GetAsync(_baseUrl + "products").Result;
+                response = await _client.GetAsync("products");
                 if (response.IsSuccessStatusCode)
                 {
                     return response.Content.ReadAsAsync<IEnumerable<Product>>().Result;

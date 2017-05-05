@@ -16,7 +16,7 @@ namespace WebStore.Facades
         public SelectionboxFacade()
         {
             _client = new HttpClient();
-            _client.BaseAddress = new System.Uri("http://ayycornapi.azurewebsites.net/api/");
+            _client.BaseAddress = new System.Uri("");
             _client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
         }
 

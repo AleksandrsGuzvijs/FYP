@@ -13,6 +13,7 @@ namespace ProductMicroService.MSFacades
     {
         private HttpClient _client;
         
+
         public async Task<HttpResponseMessage> GetAll(string url)
         {
             try
@@ -21,37 +22,39 @@ namespace ProductMicroService.MSFacades
                 _client.BaseAddress = new Uri(url);
                 _client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
 
+                string storeLinkName;
+                if (url == "http://undercutters.azurewebsites.net/")
+                {
+                    storeLinkName = "Undercutters";
+                }
+                else if (url == "http://dodgydealers.azurewebsites.net/")
+                {
+                    storeLinkName = "Dodgydealers";
+                }
+                else
+                {
+                    storeLinkName = "Bazzasbazaar";
+                }
+
                 HttpResponseMessage response = new HttpResponseMessage();
                 response = await _client.GetAsync("/api/Product");
                 if (response.IsSuccessStatusCode)
                 {
                     var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
-                    return products;
+                    return Request.CreateResponse<IEnumerable<Product>>(HttpStatusCode.OK ,products);
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Not Found");
                 }
-            }
+            } 
             catch
             {
-                return NotFound;
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing GetAll");
             }
         }
 
-        public async Task<IEnumerable<Product>> FindBy(string url)
-        {
-            try
-            {
-
-            }
-            catch
-            {
-                return NotFound;
-            }
-        }
-
-        public async Task<Product> FindById(string url,int id)
+        public async Task<HttpResponseMessage> FindBy(string url)
         {
             try
             {
@@ -59,21 +62,65 @@ namespace ProductMicroService.MSFacades
                 _client.BaseAddress = new Uri(url);
                 _client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
 
+                string storeLinkName;
+                if (url == "http://undercutters.azurewebsites.net/")
+                {
+                    storeLinkName = "Undercutters";
+                }
+                else if (url == "http://dodgydealers.azurewebsites.net/")
+                {
+                    storeLinkName = "Dodgydealers";
+                }
+                else
+                {
+                    storeLinkName = "Bazzasbazaar";
+                }
+
+
+            }
+            catch
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing FindBy");
+            }
+        }
+
+        public async Task<HttpResponseMessage> FindById(string url,int id)
+        {
+            try
+            {
+                _client = new HttpClient();
+                _client.BaseAddress = new Uri(url);
+                _client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+
+                string storeLinkName;
+                if (url == "http://undercutters.azurewebsites.net/")
+                {
+                    storeLinkName = "Undercutters";
+                }
+                else if (url == "http://dodgydealers.azurewebsites.net/")
+                {
+                    storeLinkName = "Dodgydealers";
+                }
+                else
+                {
+                    storeLinkName = "Bazzasbazaar";
+                }
+
                 HttpResponseMessage response = new HttpResponseMessage();
                 response = await _client.GetAsync("/api/Product/" + id);
                 if (response.IsSuccessStatusCode)
                 {
                     var products = response.Content.ReadAsAsync<Product>().Result;
-                    return Ok(products);
+                    return Request.CreateResponse<Product>(HttpStatusCode.OK, products);
                 }
                 else
                 {
-                    return NotFound;
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Not Found");
                 }
             }
             catch
             {
-                return NotFound;
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing FindById");
             }
         }
     }

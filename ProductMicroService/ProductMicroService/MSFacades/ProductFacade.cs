@@ -41,6 +41,10 @@ namespace ProductMicroService.MSFacades
                 if (response.IsSuccessStatusCode)
                 {
                     var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
+                    //foreach(string StoreName in products)
+                    //{
+
+                    //}
                     return Request.CreateResponse<IEnumerable<Product>>(HttpStatusCode.OK ,products);
                 }
                 else

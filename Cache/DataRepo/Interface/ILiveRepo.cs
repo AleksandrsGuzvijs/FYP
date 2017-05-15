@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LibFYP;
 
-namespace DataRepo.Interfaces
+namespace DataRepo.Interface
 {
     public interface ILiveRepo<T> : IGenericRepo<T> where T : Dto
     {

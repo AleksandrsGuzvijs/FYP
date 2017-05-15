@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using DataRepo.Interfaces;
+using DataRepo.Interface;
 
-namespace DataRepo.Repos
+namespace DataRepo.Repo
 {
     public class LiveRepo<Dto> : ILiveRepo<Dto> where Dto : LibFYP.Dto
     {

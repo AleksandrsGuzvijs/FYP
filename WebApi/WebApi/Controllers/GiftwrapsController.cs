@@ -26,7 +26,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var repo = new CacheAdapter.Core.WrappingRepo(new HttpClient());
+                var repo = new WrappingRepo(new HttpClient());
                 IQueryable<Wrapping> results;
 
                 if ((typeName != null) || (rangeName != null) || (typeId != null) || (rangeId != null) || (minPrice != 0) || (maxPrice != double.MaxValue))
@@ -86,7 +86,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var repo = new CacheAdapter.Core.WrappingRepo(new HttpClient());
+                var repo = new WrappingRepo(new HttpClient());
                 Wrapping results;
                 results = await repo.GetById(id);
                 if (results == null)

@@ -37,7 +37,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var repo = new CacheAdapter.Core.BrandRepo(new HttpClient());
+                var repo = new BrandRepo(new HttpClient());
                 Brand results;
                 results = await repo.GetById(id);
                 if (results == null)

@@ -37,7 +37,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var repo = new CacheAdapter.Core.WrapRangeRepo(new HttpClient());
+                var repo = new WrapRangeRepo(new HttpClient());
                 Range results;
                 results = await repo.GetById(id);
                 if (results == null)

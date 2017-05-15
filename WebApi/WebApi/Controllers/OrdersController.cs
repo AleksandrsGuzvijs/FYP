@@ -9,7 +9,7 @@ using LibFYP.DTOs;
 
 namespace WebApi.Controllers
 {
-    /*public class OrdersController : ApiController
+    public class OrdersController : ApiController
     {
         private Order _orderRepo;
 
@@ -37,9 +37,9 @@ namespace WebApi.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
             }
-         }
+        }
 
-    [HttpPost]
+        [HttpPost]
         public async Task<HttpResponseMessage> PostOrder(Order order)
         {
             try
@@ -80,5 +80,5 @@ namespace WebApi.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
             }
         }
-    }*/
+    }
 }

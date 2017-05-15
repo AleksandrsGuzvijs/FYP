@@ -38,7 +38,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var repo = new CacheAdapter.Core.CategoryRepo(new HttpClient());
+                var repo = new CategoryRepo(new HttpClient());
                 Category results;
                 results = await repo.GetById(id);
                 if (results == null)

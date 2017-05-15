@@ -66,7 +66,7 @@ namespace WebApi.Controllers
             try
             {
                 var repo = new Facades.SelectionBoxServiceFacade();
-                LibAyycorn.Dtos.Giftbox results;
+                Giftbox results;
                 results = await repo.PostSelectionBox(giftbox);
                 if (results == null)
                 {

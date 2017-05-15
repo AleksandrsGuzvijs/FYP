@@ -41,6 +41,7 @@ namespace ProductMicroService.MSFacades
                 if (response.IsSuccessStatusCode)
                 {
                     var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
+                    // todo: enter name of the store data was pulled from, into StoreName field of each product object
                     //foreach(string StoreName in products)
                     //{
 

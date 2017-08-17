@@ -16,5 +16,6 @@ namespace LibFYP.DTOs
         public virtual string ProductName { get; set; }
         public virtual string ProductEan { get; set; }
         public virtual double TotalPrice { get; set; }
+        public virtual string StoreName { get; set; }
     }
 }

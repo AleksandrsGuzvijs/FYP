@@ -11,7 +11,13 @@ namespace WebApi.Controllers
 {
     public class CategoriesController : ApiController
     {
-        
+        private Order _category;
+
+        public CategoriesController(Order repo)
+        {
+            _category = repo;
+        }
+
         [HttpGet]
         public async Task<HttpResponseMessage> GetCategories()
         {

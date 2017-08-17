@@ -11,11 +11,11 @@ namespace WebApi.Controllers
 {
     public class OrdersController : ApiController
     {
-        private Order _orderRepo;
+        private Order _order;
 
-        public OrdersController(Order _repo)
+        public OrdersController(Order repo)
         {
-            _orderRepo = _repo;
+            _order = repo;
         }
 
         [HttpPost]

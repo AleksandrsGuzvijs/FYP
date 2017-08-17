@@ -11,6 +11,13 @@ namespace WebApi.Controllers
 {
     public class WraptypesController : ApiController
     {
+        private Order _wraptype;
+
+        public WraptypesController(Order repo)
+        {
+            _wraptype = repo;
+        }
+
         [HttpGet]
         public async Task<HttpResponseMessage> GetBrands()
         {

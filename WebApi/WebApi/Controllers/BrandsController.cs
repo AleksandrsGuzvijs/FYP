@@ -11,6 +11,14 @@ namespace WebApi.Controllers
 {
     public class BrandsController : ApiController
     {
+
+        private Order _brand;
+
+        public BrandsController(Order repo)
+        {
+            _brand = repo;
+        }
+
         [HttpGet]
         public async Task<HttpResponseMessage> GetBrands()
         {

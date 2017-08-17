@@ -11,12 +11,12 @@ namespace WebApi.Controllers
 {
     public class ProductsController : ApiController
     {
-        /*private Product _productRepo;
+        private Product _productRepo;
         
-        public ProductsController(Product _repo)
+        public ProductsController(Product repo)
         {
-            _productRepo = _repo;
-        }*/
+            _productRepo = repo;
+        }
         
         [HttpGet]
         public async Task<IHttpActionResult> GetProducts(int? catId = null, int? brandId = null, double? minPrice = 0,

@@ -13,12 +13,12 @@ namespace WebApi.Controllers
     public class GiftwrapsController : ApiController
     {
 
-        /*private Wrapping _giftwrapRepo;
+        private Wrapping _giftwrapRepo;
 
-        public GiftwrapsController(Wrapping _repo)
+        public GiftwrapsController(Wrapping repo)
         {
-            _giftwrapRepo = _repo;
-        }*/
+            _giftwrapRepo = repo;
+        }
 
         // GET: api/values
         [HttpGet]

@@ -11,6 +11,13 @@ namespace WebApi.Controllers
 {
     public class WraprangesController : ApiController
     {
+        private Product _wraprangeRepo;
+
+        public WraprangesController(Product repo)
+        {
+            _wraprangeRepo = repo;
+        }
+
         [HttpGet]
         public async Task<HttpResponseMessage> GetWrapranges()
         {

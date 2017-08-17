@@ -11,12 +11,12 @@ namespace WebApi.Controllers
 {
     public class SelectionBoxController : ApiController
     {
-        /*private Giftbox _giftboxRepo;
+        private Giftbox _selectionbox;
 
-        public SelectionBoxController(Giftbox _repo)
+        public SelectionBoxController(Giftbox repo)
         {
-            _giftboxRepo = _repo;
-        }*/
+            _selectionbox = repo;
+        }
 
         [HttpGet]
         public async Task<HttpResponseMessage> GetSelectionBoxes()

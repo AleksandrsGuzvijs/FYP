@@ -1,31 +1,46 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using LibFYP.DTOs;
 
 namespace WebStore.Facades
 {
-    public class SelectionboxFacade
+    public class SelectionboxFacade : ApiController
     {
         private readonly HttpClient _client;
+        private JsonSerializerSettings _serializerSettings;
 
         public SelectionboxFacade()
         {
             _client = new HttpClient();
             _client.BaseAddress = new System.Uri("");
             _client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+            _serializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Ignore };
         }
 
+        public SelectionBoxFacade(HttpClient client)
+        {
+            this._client = client;
+            _serializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Ignore };
+        }
 
+        
         public async Task<IEnumerable<Giftbox>> GetSelectionBoxes()
         {
             try
             {
-                HttpResponseMessage response = new HttpResponseMessage();
+                HttpResponseMessage response = new HttpResponseMessage
+                {
+                    Method = HttpMethod.Get
+                };
+
                 response = await _client.GetAsync(_baseUrl + "selectionbox").Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -47,7 +62,10 @@ namespace WebStore.Facades
         {
             try
             {
-                HttpResponseMessage response = new HttpResponseMessage();
+                HttpResponseMessage response = new HttpResponseMessage
+                {
+                    Method = HttpMethod.Get
+                };
                 response = await _client.GetAsync(_baseUrl + "selectionbox/" + id);
                 return response;
             }
@@ -63,13 +81,11 @@ namespace WebStore.Facades
         {
             try
             {
-                HttpResponseMessage response = new HttpResponseMessage();
-
-                Giftbox giftbox = new Giftbox
+                HttpResponseMessage response = new HttpResponseMessage
                 {
-
+                    Method = HttpMethod.Post,
                 };
-
+                
                 response = await _client.PostAsJsonAsync(_baseUrl + "selectionbox/", giftbox).Result;
             }
 
@@ -83,7 +99,20 @@ namespace WebStore.Facades
 
         public async Task<HttpResponseMessage> UpdateSelectionBox(Giftbox giftbox)
         {
+            try
+            {
+                HttpResponseMessage response = new HttpResponseMessage
+                {
+                    Method = HttpMethod.Put
+                };
 
+                response = await _client.PostAsJsonAsync(_baseUrl + "selectionbox/", giftbox).Result;
+            }
+
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
 
@@ -91,7 +120,10 @@ namespace WebStore.Facades
         {
             try
             {
-                HttpResponseMessage response = new HttpResponseMessage();
+                HttpResponseMessage response = new HttpResponseMessage
+                {
+                    Method = HttpMethod.Delete
+                };
 
                 response = await _client.PostAsJsonAsync(_baseUrl + "selectionbox/delete", +id).Result;
             }

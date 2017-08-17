@@ -21,9 +21,22 @@ namespace WebStore.Facades
         }
 
 
-        public async Task<HttpResponseMessage> PostOrder()
+        public async Task<HttpResponseMessage> PostOrder(Order order)
         {
+            try
+            {
+                HttpResponseMessage response = new HttpResponseMessage
+                {
+                    Method = HttpMethod.Post,
+                };
 
+                response = await _client.PostAsJsonAsync(_baseUrl + "order/", order).Result;
+            }
+
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
     }
 }

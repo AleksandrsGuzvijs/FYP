@@ -54,7 +54,7 @@ namespace WebApi.Facades
                     RequestUri = new Uri(_baseUrl + "getboxes")
                 };
 
-                IQueryable<LibFYP.DTOs.Giftbox> res = await ExecuteRequestAsyncList<LibFYP.DTOs.Giftbox>(request);
+                IQueryable<LibFYP.DTOs.Giftbox> res = await RequestAsyncList<LibFYP.DTOs.Giftbox>(request);
 
                 return res.Any()
                     ? res
@@ -81,7 +81,7 @@ namespace WebApi.Facades
                     RequestUri = new Uri(_baseUrl + "getbox/" + id)
                 };
 
-                return await ExecuteRequestAsync<LibFYP.DTOs.Giftbox>(request);
+                return await RequestAsync<LibFYP.DTOs.Giftbox>(request);
             }
             catch (Exception ex)
             {
@@ -100,7 +100,7 @@ namespace WebApi.Facades
                     RequestUri = new Uri(_baseUrl + "getboxes")
                 };
 
-                IQueryable<LibFYP.DTOs.Giftbox> res = await ExecuteRequestAsyncList<LibFYP.DTOs.Giftbox>(request);
+                IQueryable<LibFYP.DTOs.Giftbox> res = await RequestAsyncList<LibFYP.DTOs.Giftbox>(request);
 
                 res = res.Where(g => g.Total >= minPrice);
                 res = res.Where(g => g.Total <= (maxPrice == 0 ? Double.MaxValue : maxPrice));
@@ -135,7 +135,7 @@ namespace WebApi.Facades
                     Content = new StringContent(JsonConvert.SerializeObject(selectionBox), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<LibFYP.DTOs.Giftbox>(request);
+                return await RequestAsync<LibFYP.DTOs.Giftbox>(request);
             }
             catch (Exception ex)
             {
@@ -159,7 +159,7 @@ namespace WebApi.Facades
                     Content = new StringContent(JsonConvert.SerializeObject(selectionBox), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<LibFYP.DTOs.Giftbox>(request);
+                return await RequestAsync<LibFYP.DTOs.Giftbox>(request);
             }
             catch (Exception ex)
             {
@@ -199,7 +199,7 @@ namespace WebApi.Facades
         /// <typeparam name="T"></typeparam>
         /// <param name="request"></param>
         /// <returns></returns>
-        private async Task<T> ExecuteRequestAsync<T>(HttpRequestMessage request) where T : class
+        private async Task<T> RequestAsync<T>(HttpRequestMessage request) where T : class
         {
             HttpResponseMessage response = await _client.SendAsync(request);
             response.EnsureSuccessStatusCode();
@@ -213,7 +213,7 @@ namespace WebApi.Facades
         /// <typeparam name="T"></typeparam>
         /// <param name="request"></param>
         /// <returns></returns>
-        private async Task<IQueryable<T>> ExecuteRequestAsyncList<T>(HttpRequestMessage request) where T : class
+        private async Task<IQueryable<T>> RequestAsyncList<T>(HttpRequestMessage request) where T : class
         {
             HttpResponseMessage response = await _client.SendAsync(request);
             response.EnsureSuccessStatusCode();

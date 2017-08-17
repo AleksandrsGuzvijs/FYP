@@ -9,9 +9,10 @@ using System.Net;
 
 namespace WebStore.Facades
 {
-    public class OrderFacade
+    public class OrderFacade : ApiController
     {
         private readonly HttpClient _client;
+        private readonly string _baseUrl = "webapi link"; // add link later
 
         public OrderFacade()
         {
@@ -25,12 +26,10 @@ namespace WebStore.Facades
         {
             try
             {
-                HttpResponseMessage response = new HttpResponseMessage
-                {
-                    Method = HttpMethod.Post,
-                };
+                HttpResponseMessage response = new HttpResponseMessage();
 
-                response = await _client.PostAsJsonAsync(_baseUrl + "order/", order).Result;
+                response = await _client.PostAsJsonAsync(_baseUrl + "order/", order);
+                return response;
             }
 
             catch (Exception ex)

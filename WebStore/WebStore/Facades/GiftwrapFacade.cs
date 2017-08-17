@@ -1,23 +1,29 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using LibFYP.DTOs;
+using System.Net;
 
 namespace WebStore.Facades
 {
-    public class GiftwrapFacade
+    public class GiftwrapFacade : ApiController
     {
         private readonly HttpClient _client;
+        private JsonSerializerSettings _serializerSettings;
+        private readonly string _baseUrl = "webapi link"; // add link later
 
         public GiftwrapFacade()
         {
             _client = new HttpClient();
-            _client.BaseAddress = new System.Uri("");
             _client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+            _serializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Ignore };
         }
 
         [HttpGet]
@@ -25,13 +31,15 @@ namespace WebStore.Facades
         {
             try
             {
-                HttpResponseMessage response = new HttpResponseMessage();
-                response = await _client.GetAsync(_baseUrl + "giftwraps" + "/").WithQueryString("rangeName=" + rangeName + "&typeName" + typeName + "&typeId" + typeId + "&rangeId" + rangeId + "&minPrice=" + MinPrice + "&maxPrice=" + MaxPrice).Result;
-                if (response.IsSuccessStatusCode)
+                HttpRequestMessage request = new HttpRequestMessage
                 {
-                    IQueryable<Wrapping> data = response.Content.ReadAsAsync<IEnumerable<Wrapping>>().Result;
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "getgiftwraps")
+                };
 
-                    data = data.Where(d => d.Price >= minPrice);
+                IQueryable<Wrapping> data = await RequestAsyncList<Wrapping>(request);
+
+                data = data.Where(d => d.Price >= minPrice);
                     data = data.Where(d => d.Price <= (maxPrice == 0 ? Double.MaxValue : maxPrice));
                     if (rangeName != null) data = data.Where(d => d.RangeName == rangeName);
                     if (typeName != null) data = data.Where(d => d.TypeName == typeName);
@@ -39,33 +47,47 @@ namespace WebStore.Facades
                     if (rangeId != null) data = data.Where(d => d.RangeId == rangeId);
 
                     return data;
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-                }
             }
 
             catch (Exception ex)
             {
-                return Enumerable.Empty<Giftbox>().AsQueryable();
+                return Enumerable.Empty<Wrapping>().AsQueryable();
             }
         }
 
         [HttpGet]
-        public async Task<HttpResponseMessage> GetGiftwrap(int id)
+        public async Task<Wrapping> GetGiftwrap(int id)
         {
             try
             {
-                HttpResponseMessage response = new HttpResponseMessage();
-                response = await _client.GetAsync(_baseUrl + "giftwraps" + "/" + id);
-                return response;
-            }
+                HttpRequestMessage request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(_baseUrl + "getgiftwrap/" + id)
+                };
 
+                return await RequestAsync<Wrapping>(request);
+            }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return null;
             }
+        }
+
+        private async Task<T> RequestAsync<T>(HttpRequestMessage request) where T : class
+        {
+            HttpResponseMessage response = await _client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            string content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(content, _serializerSettings);
+        }
+
+        private async Task<IQueryable<T>> RequestAsyncList<T>(HttpRequestMessage request) where T : class
+        {
+            HttpResponseMessage response = await _client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            string content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<T>>(content, _serializerSettings).AsQueryable();
         }
     }
 }

@@ -25,15 +25,15 @@ namespace WebApi.Controllers
             {
                 var repo = new Facades.PostOrderFacade();
                 Order result;
-                result = await repo.PostOrderAsync(order);
-                if (result.Success == true)
+                result = await repo.PostOrder(order);
+                if (result == null)
                 {
                     return Request.CreateResponse(HttpStatusCode.Accepted);
                 }
                 return Request.CreateResponse(HttpStatusCode.ServiceUnavailable);
             }
 
-            catch
+            catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
             }

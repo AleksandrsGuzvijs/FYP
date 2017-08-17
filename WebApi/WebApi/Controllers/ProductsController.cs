@@ -35,6 +35,7 @@ namespace WebApi.Controllers
                     {
                         query.Add("catId", catId);
                     }
+                    
                     if (brandId != null)
                     {
                         query.Add("brandId", brandId);
@@ -62,7 +63,7 @@ namespace WebApi.Controllers
                 return NotFound();
             }
 
-            catch
+            catch (Exception ex)
             {
                 return NotFound();
             }
@@ -84,7 +85,7 @@ namespace WebApi.Controllers
                     return Ok(results);
             }
 
-            catch
+            catch (Exception ex)
             {
                 return NotFound();
             }

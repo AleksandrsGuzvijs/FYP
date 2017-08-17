@@ -121,9 +121,10 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SelectionBoxController.cs" />
-    <Compile Include="Controllers\SelectionboxesController.cs" />
     <Compile Include="Controllers\WraprangesController.cs" />
     <Compile Include="Controllers\WraptypesController.cs" />
+    <Compile Include="Facades\PostOrderFacade.cs" />
+    <Compile Include="Facades\SelectionBoxServiceFacade.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -144,7 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Facades\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Models\" />
   </ItemGroup>

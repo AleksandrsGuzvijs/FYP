@@ -33,7 +33,7 @@ namespace WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, results);
             }
 
-            catch 
+            catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
             }
@@ -54,7 +54,7 @@ namespace WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, results);
             }
 
-            catch 
+            catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
             }
@@ -75,7 +75,7 @@ namespace WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.Accepted);
             }
 
-            catch
+            catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
             }
@@ -96,7 +96,7 @@ namespace WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.Accepted);
             }
 
-            catch
+            catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
             }
@@ -117,7 +117,7 @@ namespace WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.Accepted);
             }
 
-            catch
+            catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
             }

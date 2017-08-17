@@ -9,7 +9,7 @@ using LibFYP.DTOs;
 
 namespace ProductMicroService.MSFacades
 {
-    public class BrandFacade 
+    public class BrandFacade : ApiController
     {
         private HttpClient _client;
 

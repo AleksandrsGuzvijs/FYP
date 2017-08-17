@@ -6,10 +6,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using LibFYP.DTOs;
+using Newtonsoft.Json;
 
 namespace ProductMicroService.MSFacades
 {
-    public class ProductFacade
+    public class ProductFacade : ApiController
     {
         private HttpClient _client;
         

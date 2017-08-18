@@ -1,6 +1,5 @@
 ﻿using LibFYP.DTOs;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,7 +18,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<HttpResponseMessage> GetBrands()
+        public async Task<HttpResponseMessage> GetWraptypes()
         {
             try
             {
@@ -40,7 +39,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<HttpResponseMessage> GetBrand(int id)
+        public async Task<HttpResponseMessage> GetWraptype(int id)
         {
             try
             {

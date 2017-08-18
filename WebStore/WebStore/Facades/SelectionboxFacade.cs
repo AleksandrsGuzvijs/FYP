@@ -32,7 +32,7 @@ namespace WebStore.Facades
         //    _serializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Ignore };
         //}
 
-        
+
         public async Task<HttpResponseMessage> GetSelectionBoxes()
         {
             try

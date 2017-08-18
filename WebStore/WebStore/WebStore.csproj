@@ -208,10 +208,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Facades\BrandsFacade.cs" />
+    <Compile Include="Facades\CategoriesFacade.cs" />
     <Compile Include="Facades\GiftwrapFacade.cs" />
     <Compile Include="Facades\OrderFacade.cs" />
     <Compile Include="Facades\ProductFacade.cs" />
     <Compile Include="Facades\SelectionboxFacade.cs" />
+    <Compile Include="Facades\WraprangesFacade.cs" />
+    <Compile Include="Facades\WraptypesFacade.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

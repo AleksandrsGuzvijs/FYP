@@ -31,12 +31,12 @@ namespace ProductMicroService.MSFacades
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                    return Enumerable.Empty<Brand>().AsQueryable();
                 }
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return Enumerable.Empty<Brand>().AsQueryable();
             }
         }
     }

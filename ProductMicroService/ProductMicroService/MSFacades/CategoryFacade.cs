@@ -6,15 +6,24 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using LibFYP.DTOs;
+using Newtonsoft.Json;
 
 namespace ProductMicroService.MSFacades
 {
     public class CategoryFacade : ApiController
     {
         private HttpClient _client;
+        private JsonSerializerSettings _serializerSettings;
+
+        public CategoryFacade()
+        {
+            _client = new HttpClient();
+            _client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+            _serializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Ignore };
+        }
 
         [HttpGet]
-        public async Task<IEnumerable<Category>> GetCategories(string url)
+        public async Task<IQueryable<Category>> GetCategories(string url)
         {
             try
             {
@@ -26,17 +35,17 @@ namespace ProductMicroService.MSFacades
                 response = await _client.GetAsync("Category");
                 if (response.IsSuccessStatusCode)
                 {
-                    var categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+                    var categories = response.Content.ReadAsAsync<IQueryable<Category>>().Result;
                     return categories;
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                    return Enumerable.Empty<Category>().AsQueryable();
                 }
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return Enumerable.Empty<Category>().AsQueryable();
             }
         }
     }

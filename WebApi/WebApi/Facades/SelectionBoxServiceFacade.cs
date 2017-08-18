@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using LibFYP.DTOs;
 
 namespace WebApi.Facades
 {
@@ -44,7 +45,7 @@ namespace WebApi.Facades
         /// Returns an IQueryable of giftboxes from the selection box service.
         /// </summary>
         /// <returns></returns>
-        public async Task<IQueryable<LibFYP.DTOs.Giftbox>> GetSelectionBoxes()
+        public async Task<IQueryable<Giftbox>> GetSelectionBoxes()
         {
             try
             {
@@ -54,15 +55,15 @@ namespace WebApi.Facades
                     RequestUri = new Uri(_baseUrl + "getboxes")
                 };
 
-                IQueryable<LibFYP.DTOs.Giftbox> res = await RequestAsyncList<LibFYP.DTOs.Giftbox>(request);
+                IQueryable<Giftbox> res = await RequestAsyncList<Giftbox>(request);
 
                 return res.Any()
                     ? res
-                    : Enumerable.Empty<LibFYP.DTOs.Giftbox>().AsQueryable();
+                    : Enumerable.Empty<Giftbox>().AsQueryable();
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<LibFYP.DTOs.Giftbox>().AsQueryable();
+                return Enumerable.Empty<Giftbox>().AsQueryable();
             }
         }
 
@@ -71,7 +72,7 @@ namespace WebApi.Facades
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<LibFYP.DTOs.Giftbox> GetSelectionBoxById(int id)
+        public async Task<Giftbox> GetSelectionBoxById(int id)
         {
             try
             {
@@ -81,7 +82,7 @@ namespace WebApi.Facades
                     RequestUri = new Uri(_baseUrl + "getbox/" + id)
                 };
 
-                return await RequestAsync<LibFYP.DTOs.Giftbox>(request);
+                return await RequestAsync<Giftbox>(request);
             }
             catch (Exception ex)
             {
@@ -89,7 +90,7 @@ namespace WebApi.Facades
             }
         }
 
-        public async Task<IQueryable<LibFYP.DTOs.Giftbox>> GetByFilters(double minPrice = 0, double maxPrice = 0, string wrappingTypeName = null,
+        public async Task<IQueryable<Giftbox>> GetByFilters(double minPrice = 0, double maxPrice = 0, string wrappingTypeName = null,
             string wrappingRangeName = null, bool? available = null, bool? visible = null)
         {
             try
@@ -100,7 +101,7 @@ namespace WebApi.Facades
                     RequestUri = new Uri(_baseUrl + "getboxes")
                 };
 
-                IQueryable<LibFYP.DTOs.Giftbox> res = await RequestAsyncList<LibFYP.DTOs.Giftbox>(request);
+                IQueryable<Giftbox> res = await RequestAsyncList<Giftbox>(request);
 
                 res = res.Where(g => g.Total >= minPrice);
                 res = res.Where(g => g.Total <= (maxPrice == 0 ? Double.MaxValue : maxPrice));
@@ -111,11 +112,11 @@ namespace WebApi.Facades
 
                 return res.Any()
                     ? res
-                    : Enumerable.Empty<LibFYP.DTOs.Giftbox>().AsQueryable();
+                    : Enumerable.Empty<Giftbox>().AsQueryable();
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<LibFYP.DTOs.Giftbox>().AsQueryable();
+                return Enumerable.Empty<Giftbox>().AsQueryable();
             }
         }
 
@@ -124,7 +125,7 @@ namespace WebApi.Facades
         /// </summary>
         /// <param name="selectionBox"></param>
         /// <returns></returns>
-        public async Task<LibFYP.DTOs.Giftbox> PostSelectionBox(LibFYP.DTOs.Giftbox selectionBox)
+        public async Task<Giftbox> PostSelectionBox(Giftbox selectionBox)
         {
             try
             {
@@ -135,7 +136,7 @@ namespace WebApi.Facades
                     Content = new StringContent(JsonConvert.SerializeObject(selectionBox), Encoding.UTF8, "application/json")
                 };
 
-                return await RequestAsync<LibFYP.DTOs.Giftbox>(request);
+                return await RequestAsync<Giftbox>(request);
             }
             catch (Exception ex)
             {
@@ -148,7 +149,7 @@ namespace WebApi.Facades
         /// </summary>
         /// <param name="selectionBox"></param>
         /// <returns></returns>
-        public async Task<LibFYP.DTOs.Giftbox> UpdateSelectionBox(LibFYP.DTOs.Giftbox selectionBox)
+        public async Task<Giftbox> UpdateSelectionBox(Giftbox selectionBox)
         {
             try
             {
@@ -159,7 +160,7 @@ namespace WebApi.Facades
                     Content = new StringContent(JsonConvert.SerializeObject(selectionBox), Encoding.UTF8, "application/json")
                 };
 
-                return await RequestAsync<LibFYP.DTOs.Giftbox>(request);
+                return await RequestAsync<Giftbox>(request);
             }
             catch (Exception ex)
             {

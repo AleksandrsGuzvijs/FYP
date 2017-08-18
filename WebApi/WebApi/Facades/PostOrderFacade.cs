@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using LibFYP.DTOs;
 
 namespace WebApi.Facades
 {
@@ -41,7 +42,7 @@ namespace WebApi.Facades
         /// </summary>
         /// <param name="orders">The selection box orders.</param>
         /// <returns></returns>
-        public async Task<LibFYP.DTOs.Order> PostOrder(LibFYP.DTOs.Order order)
+        public async Task<Order> PostOrder(Order order)
         {
             try
             {
@@ -52,7 +53,7 @@ namespace WebApi.Facades
                     Content = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8, "application/json")
                 };
 
-                return await ExecuteRequestAsync<LibFYP.DTOs.Order>(request);
+                return await ExecuteRequestAsync<Order>(request);
             }
             catch (Exception ex)
             {
